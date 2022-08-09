@@ -82,7 +82,7 @@ describe('Test login screen functions', () => {
   })
 
   test('Valid username and password', async () => {
-    render(<Login />)
+    const loginScreen = render(<Login />)
     const { password, username } = buildLoginFormData()
     const passwordField = screen.getByLabelText(/password/i)
     const usernameField = screen.getByLabelText(/username/i)
@@ -98,5 +98,8 @@ describe('Test login screen functions', () => {
     await waitForElementToBeRemoved(() => screen.getByText(/loading/i))
     expect(screen.getByText(/welcome/i)).toBeInTheDocument()
     expect(screen.getByText(username)).toBeInTheDocument()
+    expect(
+      loginScreen.container.querySelector('#login-form')
+    ).not.toBeInTheDocument()
   })
 })
