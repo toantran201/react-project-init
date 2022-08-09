@@ -1,45 +1,55 @@
 import React from 'react'
+//
+import LoginForm from './LoginForm'
 
-type LoginProps = {
-  onSubmit: ({
-    username,
-    password,
-  }: {
-    username: string
-    password: string
-  }) => void
-}
+const LOGIN_ENDPOINT = 'https://abc.example.com/api/login'
 
-const Login = ({ onSubmit }: LoginProps) => {
-  const [username, setUsername] = React.useState('')
-  const [password, setPassword] = React.useState('')
+const Login = () => {
+  const [userData, setUserData] = React.useState<any>()
+  const [fetchingStatus, setFetchingStatus] = React.useState<
+    'idle' | 'pending' | 'resolved' | 'rejected'
+  >('idle')
+  const [errorMsg, setErrorMsg] = React.useState<any>(undefined)
 
-  const handleSubmit = () => {
-    onSubmit({ username, password })
+  const onSubmit = (submitData: { username: string; password: string }) => {
+    setFetchingStatus('pending')
+
+    fetch(LOGIN_ENDPOINT, {
+      method: 'POST',
+      body: JSON.stringify(submitData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(async (res) => {
+      const data = await res.json()
+      console.log('data', data)
+      console.log('data', data)
+      if (res.ok) {
+        setFetchingStatus('resolved')
+        setUserData(data)
+      } else {
+        setFetchingStatus('rejected')
+        setErrorMsg(data.message || 'Error')
+      }
+    })
   }
 
   return (
-    <div>
+    <div className="App">
+      {fetchingStatus === 'resolved' ? (
+        <div>
+          Welcome <b>{userData.name}</b>
+        </div>
+      ) : (
+        <LoginForm onSubmit={onSubmit} />
+      )}
       <div>
-        <label htmlFor="username-field">Username</label>
-        <input
-          id="username-field"
-          type="text"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="password-field">Password</label>
-        <input
-          id="password-field"
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </div>
-      <div>
-        <button onClick={handleSubmit}>Submit</button>
+        {fetchingStatus === 'pending' && <b>Loading</b>}
+        {fetchingStatus === 'rejected' && (
+          <div role="alert" style={{ color: 'red' }}>
+            {errorMsg}
+          </div>
+        )}
       </div>
     </div>
   )

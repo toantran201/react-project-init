@@ -1,7 +1,9 @@
 {
   "name": "react-base",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "title": "React boilerplate with vite and vitest",
+  "author": "toantran201",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -38,6 +40,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "jsdom": "^20.0.0",
+    "msw": "^0.44.2",
     "prettier": "^2.7.1",
     "typescript": "^4.6.3",
     "vite": "^2.9.9",

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Counter } from '@/components'
-import { render, screen, userEvent } from '@/utils/test.utils'
+import { customRender as render, screen, userEvent } from '@/utils/test'
 
 describe('Test counter action', () => {
   test('Counter increment click', () => {
