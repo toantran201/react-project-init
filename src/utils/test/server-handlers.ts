@@ -19,7 +19,7 @@ export const handlers = [
         return res(
           ctx.delay(0),
           ctx.status(400),
-          ctx.json({ message: 'Password required' })
+          ctx.json({ message: 'Username required' })
         )
       }
 

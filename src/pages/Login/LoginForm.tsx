@@ -19,7 +19,7 @@ const LoginForm = ({ onSubmit }: LoginProps) => {
   }
 
   return (
-    <div>
+    <div id="login-form">
       <div>
         <label htmlFor="username-field">Username</label>
         <input

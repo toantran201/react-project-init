@@ -40,7 +40,7 @@ const Login = () => {
     <div className="App">
       {fetchingStatus === 'resolved' ? (
         <div>
-          Welcome <b>{userData.name}</b>
+          Welcome <b>{userData.username}</b>
         </div>
       ) : (
         <LoginForm onSubmit={onSubmit} />

@@ -4,6 +4,7 @@ import { Login, LoginForm } from '@/pages'
 import { faker } from '@faker-js/faker'
 import { customRender as render, userEvent, screen } from '@/utils/test'
 import { waitForElementToBeRemoved } from '@testing-library/react'
+
 const buildLoginFormData = (overrides?: {
   username?: string
   password?: string
@@ -45,11 +46,46 @@ describe('Test login component', () => {
 describe('Test login screen functions', () => {
   test('Missing password', async () => {
     render(<Login />)
-    const { username, password } = buildLoginFormData({
-      password: '',
-    })
+    const { username } = buildLoginFormData()
     const usernameField = screen.getByLabelText(/username/i)
+
+    const submitBtn = screen.getByRole('button', {
+      name: /submit/i,
+    })
+
+    userEvent.type(usernameField, username)
+    userEvent.click(submitBtn)
+
+    await waitForElementToBeRemoved(() => screen.getByText(/loading/i))
+
+    expect(screen.getByRole('alert').textContent).toMatchInlineSnapshot(
+      '"Password required"'
+    )
+  })
+
+  test('Missing username', async () => {
+    render(<Login />)
+    const { password } = buildLoginFormData()
     const passwordField = screen.getByLabelText(/password/i)
+
+    const submitBtn = screen.getByRole('button', {
+      name: /submit/i,
+    })
+
+    userEvent.type(passwordField, password)
+    userEvent.click(submitBtn)
+
+    await waitForElementToBeRemoved(() => screen.getByText(/loading/i))
+    expect(screen.getByRole('alert').textContent).toMatchInlineSnapshot(
+      '"Username required"'
+    )
+  })
+
+  test('Valid username and password', async () => {
+    render(<Login />)
+    const { password, username } = buildLoginFormData()
+    const passwordField = screen.getByLabelText(/password/i)
+    const usernameField = screen.getByLabelText(/username/i)
 
     const submitBtn = screen.getByRole('button', {
       name: /submit/i,
@@ -60,10 +96,7 @@ describe('Test login screen functions', () => {
     userEvent.click(submitBtn)
 
     await waitForElementToBeRemoved(() => screen.getByText(/loading/i))
-    screen.debug()
-
-    expect(screen.getByRole('alert').textContent).toMatchInlineSnapshot(
-      '"Password required"'
-    )
+    expect(screen.getByText(/welcome/i)).toBeInTheDocument()
+    expect(screen.getByText(username)).toBeInTheDocument()
   })
 })
