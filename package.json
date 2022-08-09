@@ -16,6 +16,7 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
+    "cross-fetch": "^3.1.5",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },

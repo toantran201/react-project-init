@@ -1,6 +1,8 @@
 import React from 'react'
 //
 import LoginForm from './LoginForm'
+//
+import fetch from 'cross-fetch'
 
 const LOGIN_ENDPOINT = 'https://abc.example.com/api/login'
 
