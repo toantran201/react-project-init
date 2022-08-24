@@ -1,8 +1,8 @@
-import { useCallback, useReducer } from 'react'
+import { useCallback, useLayoutEffect, useReducer, useRef } from 'react'
 import { Method } from 'axios'
+import { stringify } from 'query-string'
 //
 import axiosClient from '@/api'
-import { stringify } from 'query-string'
 
 export enum FETCH_STATUS {
   IDLE = 'IDLE',
@@ -49,6 +49,14 @@ const useAxios = <T,>(
     status: FETCH_STATUS.IDLE,
     error: undefined,
   })
+  const mountedRef = useRef(false)
+
+  useLayoutEffect(() => {
+    mountedRef.current = true
+    return () => {
+      mountedRef.current = false
+    }
+  }, [])
 
   const fetchApi = useCallback(
     (url: string, method: Method = 'GET', payload = {}, params: Record<string, any> = {}) => {
@@ -60,9 +68,11 @@ const useAxios = <T,>(
           url: `${url}?${stringify(params)}`,
         })
         .then((res) => {
+          if (!mountedRef.current) return
           dispatch({ type: FETCH_STATUS.RESOLVED, data: res.data as T })
         })
         .catch((error) => {
+          if (!mountedRef.current) return
           dispatch({ type: FETCH_STATUS.REJECTED, error })
         })
     },
