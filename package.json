@@ -55,7 +55,7 @@
     "postinstall": "husky install"
   },
   "lint-staged": {
-    "*": [
+    "src/**/*.{ts,tsx,js,jsx}": [
       "yarn run lint:fix"
     ]
   }
