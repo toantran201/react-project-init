@@ -1,8 +1,38 @@
-<p style="text-align: center">
-    <img src="https://seeklogo.com/images/V/vite-logo-BFD4283991-seeklogo.com.png" alt="Vite logo" style="margin-bottom: 30px"/>
-    <br><br><br>
-    <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React logo">
-    <img src="https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white" alt="ESLint logo">
-    <img src="https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E" alt="Prettier logo">
-</p>
+# React Init Project - ReactJS 18 + TypeScript + ViteJS
+I created this repository to minimize the time it takes to start a new project.
 
+In this source code I have included settings related to eslint, prettier, create hooks 
+for fetching data using axios, and also demo for unit testing. Besides, I also did some config to support our team work smoother with husky library.
+ 
+## Installation
+
+```bash
+$ yarn install
+```
+
+## Running the app
+
+```bash
+$ yarn run dev
+```
+
+## Test
+
+```bash
+# unit tests
+$ yarn run test
+
+# UI unit tests
+$ yarn run test:ui
+```
+
+## Lint & Prettier
+```bash
+# lint
+$ yarn run lint
+$ yarn run lint:fix
+
+# prettier
+$ yarn run prettier
+$ yarn run prettier:fix
+```
