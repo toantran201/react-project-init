@@ -46,9 +46,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .tsx,.ts --ignore .eslintignore",
-    "lint:fix": "eslint src/* --fix --ignore-path .eslintignore",
-    "prettier": "npx prettier src -check",
-    "prettier:fix": "npx run prettier -- --write",
+    "lint:fix": "yarn lint --fix",
+    "prettier": "npx prettier src --check",
+    "prettier:fix": "npx prettier src --write",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
@@ -56,6 +56,7 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,js,jsx}": [
+      "yarn run prettier:fix",
       "yarn run lint:fix"
     ]
   }

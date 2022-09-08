@@ -5,10 +5,7 @@ import { faker } from '@faker-js/faker'
 import { customRender as render, userEvent, screen } from '@/utils/test'
 import { waitForElementToBeRemoved } from '@testing-library/react'
 
-const buildLoginFormData = (overrides?: {
-  username?: string
-  password?: string
-}): { username: string; password: string } => {
+const buildLoginFormData = (overrides?: { username?: string; password?: string }): { username: string; password: string } => {
   return {
     username: faker.internet.userName(),
     password: faker.internet.password(),
@@ -58,9 +55,7 @@ describe('Test login screen functions', () => {
 
     await waitForElementToBeRemoved(() => screen.getByText(/loading/i))
 
-    expect(screen.getByRole('alert').textContent).toMatchInlineSnapshot(
-      '"Password required"'
-    )
+    expect(screen.getByRole('alert').textContent).toMatchInlineSnapshot('"Password required"')
   })
 
   test('Missing username', async () => {
@@ -76,9 +71,7 @@ describe('Test login screen functions', () => {
     userEvent.click(submitBtn)
 
     await waitForElementToBeRemoved(() => screen.getByText(/loading/i))
-    expect(screen.getByRole('alert').textContent).toMatchInlineSnapshot(
-      '"Username required"'
-    )
+    expect(screen.getByRole('alert').textContent).toMatchInlineSnapshot('"Username required"')
   })
 
   test('Valid username and password', async () => {
@@ -98,8 +91,6 @@ describe('Test login screen functions', () => {
     await waitForElementToBeRemoved(() => screen.getByText(/loading/i))
     expect(screen.getByText(/welcome/i)).toBeInTheDocument()
     expect(screen.getByText(username)).toBeInTheDocument()
-    expect(
-      loginScreen.container.querySelector('#login-form')
-    ).not.toBeInTheDocument()
+    expect(loginScreen.container.querySelector('#login-form')).not.toBeInTheDocument()
   })
 })

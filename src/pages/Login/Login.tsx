@@ -8,9 +8,7 @@ const LOGIN_ENDPOINT = 'https://abc.example.com/api/login'
 
 const Login = () => {
   const [userData, setUserData] = React.useState<any>()
-  const [fetchingStatus, setFetchingStatus] = React.useState<
-    'idle' | 'pending' | 'resolved' | 'rejected'
-  >('idle')
+  const [fetchingStatus, setFetchingStatus] = React.useState<'idle' | 'pending' | 'resolved' | 'rejected'>('idle')
   const [errorMsg, setErrorMsg] = React.useState<any>(undefined)
 
   const onSubmit = (submitData: { username: string; password: string }) => {
